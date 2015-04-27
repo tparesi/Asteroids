@@ -3,19 +3,20 @@
     window.Asteroids = {};
   }
 
-  var GameView = Asteroids.GameView = function (Game, ctx) {
-    this.Game = Game;
+  var GameView = Asteroids.GameView = function (game, ctx) {
+    this.game = game;
     this.ctx = ctx;
   };
 
-  GameView.prototype.start = function () {
-    setInterval(function(){
-      Game.moveObjects();
-      Game.draw();
-    }, 20);
+  GameView.prototype.start = function (canvasEl) {
+    var ctx = canvasEl.getContext("2d");
+    setInterval(function () {
+      this.game.moveObjects();
+      this.game.draw(ctx);
+    }.bind(this), 20);
   };
 
-  
+
 
 
 

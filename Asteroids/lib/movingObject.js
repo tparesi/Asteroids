@@ -4,10 +4,11 @@
   }
 
   var MovingObject = Asteroids.MovingObject = function (args) {
-    this.pos = args["pos"];
-    this.vel = args["vel"];
-    this.radius = args["radius"];
-    this.color = args["color"];
+    this.pos = args.pos;
+    this.vel = args.vel;
+    this.radius = args.radius;
+    this.color = args.color;
+    this.game = args.game
   };
 
   MovingObject.prototype.draw = function(ctx) {
@@ -28,6 +29,7 @@
   MovingObject.prototype.move = function() {
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
+    this.game.wrap(this.pos);
   };
 
 

@@ -2,11 +2,31 @@
 <html>
   <head>
     <title></title>
+    <script type="text/javascript" src="./lib/util.js"></script>
+    <script type="text/javascript" src="./lib/movingObject.js"></script>
+    <script type="text/javascript" src="./lib/asteroid.js"></script>
+    <script type="text/javascript" src="./lib/game.js"></script>
+    <script type="text/javascript" src="./lib/gameView.js"></script>
   </head>
-  <body>
-    <script type="text/javascript" src="">
 
+  <style>
+    body {
+      width: 500px;
+      display: block;
+      margin: auto;
+      border: 10px solid black;
+    }
+  </style>
+
+  <body>
+
+    <canvas id="game-canvas" width="500" height="500"></canvas>
+
+    <script type="text/javascript">
+      var canvasEl = document.getElementById("game-canvas");
+      new Asteroids.GameView(new Asteroids.Game(), canvasEl).start(canvasEl);
     </script>
+
 
   </body>
 </html>

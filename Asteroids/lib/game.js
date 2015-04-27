@@ -7,27 +7,28 @@
     this.asteroids = [];
     this.addAsteroids();
   };
-  Game.DIM_X = 800;
-  Game.DIM_Y = 800;
-  Game.NUM_ASTEROIDS = 10;
+  Game.DIM_X = 500;
+  Game.DIM_Y = 500;
+  Game.NUM_ASTEROIDS = 1;
 
   Game.prototype.randomPosition = function () {
-    var x = Math.random() * this.DIM_X;
-    var y = Math.random() * this.DIM_Y;
+    var x = Math.random() * Game.DIM_X;
+    var y = Math.random() * Game.DIM_Y;
 
     return [x, y];
   };
 
   Game.prototype.addAsteroids = function () {
-    for (var i = 0; i < this.NUM_ASTEROIDS; i++) {
+    for (var i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.asteroids.push(new Asteroids.Asteroid({
-        pos: this.randomPostion()
+        pos: this.randomPosition(),
+        game: this
       }));
     }
   };
 
   Game.prototype.draw = function (ctx) {
-    ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
+    ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
     this.asteroids.forEach(function (asteroid) {
       asteroid.draw(ctx);
@@ -38,6 +39,18 @@
     this.asteroids.forEach(function (asteroid) {
       asteroid.move();
     });
+  };
+
+  Game.prototype.wrap = function (pos) {
+    if (pos[0] >= Game.DIM_X + 10) {
+      pos[0] = 0;
+    } else if (pos[0] <= -10) {
+      pos[0] = Game.DIM_X;
+    } else if (pos[1] >= Game.DIM_Y + 10) {
+      pos[1] = 0;
+    } else if (pos[1] <= -10) {
+      pos[1] = Game.DIM_Y;
+    }
   };
 
 })();

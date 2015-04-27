@@ -4,13 +4,15 @@
   }
 
   var Asteroid = Asteroids.Asteroid = function (args) {
-    MovingObject.call(this, args);
-    this.vel = Asteroids.Util.randVec();
+    args.color = Asteroid.COLOR;
+    args.radius = Asteroid.RADIUS;
+    args.vel = Asteroids.Util.randVec();
+    Asteroids.MovingObject.call(this, args);
   };
-  Asteroid.COLOR = #fff;
-  Asteroid.RADIUS = 5;
+  Asteroid.COLOR = "#000";
+  Asteroid.RADIUS = 25;
 
 
-  Asteroids.Util.inherit(Asteroid, MovingObject);
+  Asteroids.Util.inherits(Asteroid, Asteroids.MovingObject);
 
 })();
