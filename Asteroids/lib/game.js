@@ -6,6 +6,7 @@
   var Game = Asteroids.Game = function () {
     this.asteroids = [];
     this.addAsteroids();
+    this.ship = new Asteroids.Ship ({game: this});
   };
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
@@ -30,14 +31,14 @@
   Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-    this.asteroids.forEach(function (asteroid) {
-      asteroid.draw(ctx);
+    this.allObjects().forEach(function (obj) {
+      obj.draw(ctx);
     });
   };
 
   Game.prototype.moveObjects = function () {
-    this.asteroids.forEach(function (asteroid) {
-      asteroid.move();
+    this.allObjects().forEach(function (obj) {
+      obj.move();
     });
   };
 
@@ -54,15 +55,11 @@
   };
 
   Game.prototype.checkCollisions = function() {
-    for (var i = 0; i < this.asteroids.length; i++) {
-      for (var j = i + 1; j < this.asteroids.length; j++) {
-        if (this.asteroids[i].isCollidedWith(this.asteroids[j])) {
-          this.remove(this.asteroids[j]);
-          this.remove(this.asteroids[i]);
-
-        }
+    this.asteroids.forEach(function(asteroid) {
+      if (this.ship.isCollidedWith(asteroid)) {
+        this.ship.relocate();
       }
-    }
+    }.bind(this));
   };
 
   Game.prototype.step = function () {
@@ -74,6 +71,10 @@
     this.asteroids = this.asteroids.filter(function (el) {
       return asteroid !== el;
     })
+  };
+
+  Game.prototype.allObjects = function () {
+    return this.asteroids.concat(this.ship);
   };
 
 })();
