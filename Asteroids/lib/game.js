@@ -9,7 +9,7 @@
   };
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
-  Game.NUM_ASTEROIDS = 1;
+  Game.NUM_ASTEROIDS = 5;
 
   Game.prototype.randomPosition = function () {
     var x = Math.random() * Game.DIM_X;
@@ -51,6 +51,29 @@
     } else if (pos[1] <= -10) {
       pos[1] = Game.DIM_Y;
     }
+  };
+
+  Game.prototype.checkCollisions = function() {
+    for (var i = 0; i < this.asteroids.length; i++) {
+      for (var j = i + 1; j < this.asteroids.length; j++) {
+        if (this.asteroids[i].isCollidedWith(this.asteroids[j])) {
+          this.remove(this.asteroids[j]);
+          this.remove(this.asteroids[i]);
+
+        }
+      }
+    }
+  };
+
+  Game.prototype.step = function () {
+    this.moveObjects();
+    this.checkCollisions();
+  };
+
+  Game.prototype.remove = function (asteroid) {
+    this.asteroids = this.asteroids.filter(function (el) {
+      return asteroid !== el;
+    })
   };
 
 })();

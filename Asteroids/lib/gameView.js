@@ -11,7 +11,7 @@
   GameView.prototype.start = function (canvasEl) {
     var ctx = canvasEl.getContext("2d");
     setInterval(function () {
-      this.game.moveObjects();
+      this.game.step();
       this.game.draw(ctx);
     }.bind(this), 20);
   };

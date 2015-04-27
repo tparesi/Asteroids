@@ -11,7 +11,7 @@
     this.game = args.game
   };
 
-  MovingObject.prototype.draw = function(ctx) {
+  MovingObject.prototype.draw = function (ctx) {
     ctx.fillStyle = this.color;
     ctx.beginPath();
 
@@ -26,11 +26,27 @@
     ctx.fill();
   };
 
-  MovingObject.prototype.move = function() {
+  MovingObject.prototype.move = function () {
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
     this.game.wrap(this.pos);
   };
 
+  MovingObject.prototype.isCollidedWith = function (otherObject) {
+    var x1, y1, x2, y2;
+    x1 = this.pos[0];
+    y1 = this.pos[1];
+    x2 = otherObject.pos[0];
+    y2 = otherObject.pos[1];
 
+    var dist = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+    var radSum = this.radius + otherObject.radius;
+    var isCollidedWith = false;
+
+    if (dist < radSum) {
+      isCollidedWith = true;
+    }
+
+    return isCollidedWith;
+  };
 })();
