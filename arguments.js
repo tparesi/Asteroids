@@ -35,3 +35,23 @@ var fluffy = new Dog('fluffy');
 var hello = Cat.prototype.sayHi;
 
 hello.myBind(fluffy, "Tom")();
+
+var curriedSum = function(numArgs) {
+  var numbers = [];
+
+  var _curriedSum = function(num) {
+    var result;
+    numbers.push(num);
+    if (numbers.length === numArgs) {
+      var accum = 0;
+      for (var i = 0; i < numArgs; i++) {
+        accum += numbers[i];
+      }
+      return accum;
+    } else {
+      return _curriedSum;
+    }
+  };
+
+  return _curriedSum;
+};
