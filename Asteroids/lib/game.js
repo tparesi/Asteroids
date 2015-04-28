@@ -5,12 +5,13 @@
 
   var Game = Asteroids.Game = function () {
     this.asteroids = [];
+    this.bullets = [];
     this.addAsteroids();
     this.ship = new Asteroids.Ship ({game: this});
   };
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
-  Game.NUM_ASTEROIDS = 5;
+  Game.NUM_ASTEROIDS = 2;
 
   Game.prototype.randomPosition = function () {
     var x = Math.random() * Game.DIM_X;
@@ -74,7 +75,7 @@
   };
 
   Game.prototype.allObjects = function () {
-    return this.asteroids.concat(this.ship);
+    return this.asteroids.concat(this.ship).concat(this.bullets);
   };
 
 })();

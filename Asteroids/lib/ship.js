@@ -26,6 +26,19 @@
   Ship.prototype.power = function (impulse) {
     this.vel[0] += impulse[0];
     this.vel[1] += impulse[1];
-  }
+  };
+
+  Ship.prototype.fireBullet = function () {
+    var vel = this.vel.slice(0);
+
+    var pos = this.pos;
+
+    if (vel == [0, 0]) {
+      vel = [0, -1];
+    }
+
+    var bullet = new Asteroids.Bullet({vel: vel, pos: pos, game: this.game});
+    this.game.bullets.push(bullet);
+  };
 
 })();

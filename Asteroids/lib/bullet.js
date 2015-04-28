@@ -11,6 +11,6 @@
   Bullet.COLOR = "#FF0000";
   Bullet.RADIUS = 2;
 
-  Asteroids.util.inherits(Bullet, Asteroids.MovingObject);
+  Asteroids.Util.inherits(Bullet, Asteroids.MovingObject);
 
 })();
